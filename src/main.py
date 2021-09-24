@@ -72,6 +72,25 @@ def show_favorites():
     user = User.query.filter_by(is_active=1).first()
     return jsonify(user.favorite_list())
 
+@app.route('/favorite/planet/<int:planet_id>', methods=['DELETE'])
+def delete_favorite_planet(planet_id):
+    active_user = User.query.filter_by(is_active=1).first()
+    planet = Planet.query.get(planet_id)
+    if planet:
+        active_user.favorite_planets = [planet for planet in active_user.favorite_planets if planet_id != planet.id]
+        active_user.save()
+        return jsonify({"message" : f"planet with id: {planet_id} deleted."})
+    return jsonify({"message": f"planet with id: {planet_id} doesn't exists."})
+
+@app.route('/favorite/people/<int:people_id>', methods=['DELETE'])
+def delete_favorite_character(people_id):
+    active_user = User.query.filter_by(is_active=1).first()
+    character = Character.query.get(people_id)
+    if character:
+        active_user.favorite_characters = [character for character in active_user.favorite_characters if people_id != character.id]
+        active_user.save()
+        return jsonify({"message" : f"character with id: {people_id} deleted."})
+    return jsonify({"message": f"character with id: {people_id} doesn't exists."})
 
 # Characters
 @app.route('/people')
