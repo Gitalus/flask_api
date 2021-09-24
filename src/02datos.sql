@@ -1,4 +1,0 @@
-insert into planets(id,name,rotation_period,orbital_period,diameter,climate,gravity,terrain,surface_water,population) values('1','Tatooine','23','304','10465','arid','1 standard','desert','1','200000');
-insert into planets(id,name,rotation_period,orbital_period,diameter,climate,gravity,terrain,surface_water,population) values('2','Alderaan','24','364','12500','temperate','1 standard','grasslands, mountains','40','2000000000');
-insert into planets(id,name,rotation_period,orbital_period,diameter,climate,gravity,terrain,surface_water,population) values('3','Yavin IV','24','4818','10200','temperate, tropical','1 standard','jungle, rainforests','8','1000');
-insert into planets(id,name,rotation_period,orbital_period,diameter,climate,gravity,terrain,surface_water,population) values('8','Naboo','26','312','12120','temperate','1 standard','grassy hills, swamps, forests, mountains','12','4500000000');
