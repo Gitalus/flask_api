@@ -57,9 +57,10 @@ class Character(db.Model):
     gender = db.Column(db.String(100))
 
     homeworld_id = db.Column(db.Integer, db.ForeignKey('planets.id'))
-    homeworld = db.relationship('Planet')
+    homeworld = db.relationship('Planet', backref="residents")
 
-    starships = db.relationship('Starship', secondary=ships, lazy='dynamic')
+    starships = db.relationship('Starship', secondary=ships, backref="pilots", lazy='dynamic')
+
 
     def __repr__(self):
         return '<Character %r>' % self.name
@@ -83,6 +84,11 @@ class Character(db.Model):
     def save(self):
         db.session.add(self)
         db.session.commit()
+    
+    def delete(self):
+        db.session.delete(self)
+        db.session.commit()
+
 
 class Planet(db.Model):
     __tablename__ = 'planets'
@@ -98,7 +104,7 @@ class Planet(db.Model):
     surface_water = db.Column(db.Float)
     population = db.Column(db.BigInteger)
 
-    residents = db.relationship('Character', lazy='dynamic')
+
 
     def __repr__(self):
         return '<Planet %r>' % self.name
@@ -140,8 +146,6 @@ class Starship(db.Model):
     hyperdrive_rating = db.Column(db.Float)
     MGLT = db.Column(db.Integer)
     starship_class = db.Column(db.String(100))
-
-    pilots = db.relationship('Character', secondary=ships, lazy='dynamic')
 
     def __repr__(self):
         return '<Starship %r>' % self.name

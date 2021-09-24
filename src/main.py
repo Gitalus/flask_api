@@ -116,6 +116,13 @@ def get_people(_id):
         return jsonify(character.serialize())
     return jsonify({"message": f"character with id: {_id}, doesn't exists."})
 
+@app.route('/people/<int:_id>', methods=['DELETE'])
+def delete_people(_id):
+    character = Character.query.get(_id)
+    if character:
+        character.delete()
+        return jsonify({"message": f"character with id: {_id} deleted."})
+    return jsonify({"message": f"character with id: {_id} doesn't exists."})
 
 # Planets
 @app.route('/planets')
